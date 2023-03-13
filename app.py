@@ -77,6 +77,9 @@ def plot_histograms(anomalies, img):
     clear_output(wait=True)
 
 
+import geocoder
+
+
 def main():
     # Set the title and page layout
     st.set_page_config(page_title="JUA Image Anomaly Detection", page_icon=":camera_with_flash:", layout="wide")
@@ -94,7 +97,7 @@ def main():
             background-repeat: no-repeat;
         }}
         .icon {{
-            background-image: url('https://cdn-icons-png.flaticon.com/512/73/73364.png');
+            background-image: url('https://cdn-icons-png.flaticon.com/512/7976/7976202.png');
             background-size: contain;
             background-repeat: no-repeat;
             width: 48px;
@@ -106,8 +109,9 @@ def main():
         """,
             unsafe_allow_html=True
         )
+
         st.markdown(
-            "<div class='icon'></div><p style='color: black; font-weight: bold;font-family: Arial, sans-serif: display: inline;'>Assen, Netherlands</p>",
+            "<div class='icon'></div><p style='color: white; font-weight: bold;font-family: Times New Roman, sans-serif: display: inline;'>Assen, Netherlands</p>",
             unsafe_allow_html=True)
 
 
@@ -128,10 +132,11 @@ def main():
             img = Image.open(uploaded_file)
             img = img.resize((512, 512))
 
-            """"# Display the image
-            st.image(img, caption="Uploaded Image", use_column_width=False)"""
+
+            st.markdown("<p style='color: white; font-weight : 'bold'; text-align: center;'>Selected Image</p>",
+                        unsafe_allow_html=True)
             st.image(img, use_column_width=False)
-            st.markdown("<p style='color: black; font-weight : 'bold'; text-align: center;'>Uploaded Image</p>", unsafe_allow_html=True)
+            st.markdown("<p style='color: white; font-weight : 'bold'; text-align: center;'>As you can see the green border in the image shows the part of the full image where the analysis is being done and the error is being detected</p>", unsafe_allow_html=True)
 
             # Save the uploaded image to a temporary file
             tmp_file_path = f"/tmp/{uploaded_file.name}"
@@ -157,8 +162,11 @@ def main():
                                 """
 
             # Display the dictionary as a table with the custom style applied
+
             st.write(table_style, unsafe_allow_html=True)
+
             st.table(out)
+
 
     else:
         # Get the list of preloaded images
@@ -172,8 +180,11 @@ def main():
         img = Image.open(selected_image_file)
         img = img.resize((512, 512))
         st.image(img, use_column_width=False)
-        st.markdown("<p style='color: black; font-weight : 'bold'; text-align: center;'>Selected Image</p>",
+        st.markdown("<p style='color: white; font-weight : 'bold'; text-align: center;'>Selected Image</p>",
                     unsafe_allow_html=True)
+        st.markdown(
+            "<p style='color: white; font-weight : 'bold'; text-align: center;'>As you can see the green border in the image shows the part of the full image where the analysis is being done and the error is being detected</p>",
+            unsafe_allow_html=True)
 
         # Run the anomaly detection algorithm on the selected image
         juaAPI = JUA(selected_image_file)
