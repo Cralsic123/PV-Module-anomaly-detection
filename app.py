@@ -80,9 +80,33 @@ def plot_histograms(anomalies, img):
 import geocoder
 
 
+def get_user_location():
+    # Use the IP Geolocation API to get the user's location
+    url = "https://api.ipgeolocation.io/ipgeo?apiKey=f294fd340228428baca4d61b7660d49a"
+    response = requests.get(url).json()
+    # Extract the location information from the API response
+    print(response)
+    city = response['city']
+    state = response['state_prov']
+    country = response['country_name']
+    location = f"{state}, {country}"
+    return location
+
 def main():
     # Set the title and page layout
     st.set_page_config(page_title="JUA Image Anomaly Detection", page_icon=":camera_with_flash:", layout="wide")
+
+
+
+
+    # Get the user's location
+    location = get_user_location()
+    st.markdown(
+        f"<div class='icon'></div><p style='color: white; font-weight: bold;font-family: Times New Roman, sans-serif: display: inline;'>{location}</p>",
+        unsafe_allow_html=True)
+
+
+
     import base64
     def add_bg_from_local(image_file):
         with open(image_file, "rb") as image_file:
@@ -110,9 +134,7 @@ def main():
             unsafe_allow_html=True
         )
 
-        st.markdown(
-            "<div class='icon'></div><p style='color: white; font-weight: bold;font-family: Times New Roman, sans-serif: display: inline;'>Assen, Netherlands</p>",
-            unsafe_allow_html=True)
+
 
 
 
