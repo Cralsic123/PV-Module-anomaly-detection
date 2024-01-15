@@ -1,1 +1,1 @@
-# PV-Module-anomaly-detection
+# solar-private
